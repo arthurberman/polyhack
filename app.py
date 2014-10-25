@@ -72,25 +72,6 @@ def image():
 
     return render_template("uploadimage.html") 
 
-@app.route('/create', methods = ["GET", "POST"])
-def create():
-    """create a new group"""
-    if request.method == "POST":
-        response = make_response(redirect("image"))
-        response.set_cookie('code', request.form['code'])
-        mongo.new_group(request.form['code'])
-        return response
-    return render_template("create")
-@app.route('/login', methods = ["GET", "POST"])
-def login():
-    """join an existing group"""
-    if request.method == "POST":
-        response = make_response(redirect("/check/"+request.form["code"]))
-        response.set_cookie('code', request.form['code'])
-        return response
-    else:
-        pass
-    return render_template("login.html")
 def makeList(filename):
     """call ThomasAPI using the image described by filename"""
     page = "https://doctorwho.noip.me/tcolgr01/test.php"
