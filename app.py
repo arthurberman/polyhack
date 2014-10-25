@@ -3,6 +3,7 @@ from werkzeug import secure_filename
 import flask
 import os
 import json
+import mongo
 #import dbc
 
 ALLOWED_EXTENSIONS = set(['txt', 'png', 'jpg', 'jpeg', 'gif'])
@@ -34,29 +35,33 @@ def image():
                  <input type=submit value=Upload>
             </form>
             '''
-@app.route('/fblogin')
-def fblogin():
-    return "test"
+@app.route('/newcheck')
+def newcheck():
+    return render_template("newcheck.html")
+@app.route('/create')
+def create():
+    if request.method == "POST":
+        response = make_response(redirect("/check/"+request.form["code"]))
+        response.set_cookie('code', request.form['code'])
+        return response
+    return render_template(create)
 @app.route('/login', methods = ["GET", "POST"])
 def login():
     if request.method == "POST":
-        session['code'] = request.form['code']
-        response = make_response(redirect("/check"))
-        response.set_cookie('code', session['code'])
+        response = make_response(redirect("/check/"+request.form["code"]))
+        response.set_cookie('code', request.form['code'])
         return response
     else:
         pass
     return render_template("login.html")
-@app.route('/check')
-def check():
-    return render_template("check.html",  items=getItems(request.cookies["code"]))
+@app.route('/check/<code>')
+def check(code):
+    return render_template("check.html",  items=getItems(code))
 def getItems(cookie):
     return [{"name":"General Gau's Chicken", "price":9.89, "claimed":True}, {"name":"Spare Ribs", "price":5.68, "claimed":False}]
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
-
-
 if __name__=="__main__":
     app.run(debug=True)
