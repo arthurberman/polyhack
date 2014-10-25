@@ -4,6 +4,8 @@ import flask
 import os
 import json
 import mongo
+import urllib2, urllib
+import base64
 #import dbc
 
 ALLOWED_EXTENSIONS = set(['txt', 'png', 'jpg', 'jpeg', 'gif'])
@@ -18,7 +20,18 @@ def allowed_file(filename):
 def index():
     return render_template("index.html")
 def makeList(filename):
-    return [{"name":"Gene Gau's Chicken", "price":9.89, "claimed":True}, {"name":"Spare Ribs", "price":5.68, "claimed":False}]
+    page = "https://doctorwho.noip.me/tcolgr01/test.php"
+
+    with open(filename, "rb") as image_file:
+        encoded_image = base64.b64encode(image_file.read())
+    raw_params = {'quality':'2','category':'1','debug':'0', 'image': encoded_image}
+    params = urllib.urlencode(raw_params)
+    request = urllib2.Request(page, params)
+    request.add_header("Content-type", "application/x-www-form-urlencoded; charset=UTF-8")
+    page = urllib2.urlopen(request)
+    info = page.read()
+    return info
+    #return [{"name":"Gene Gau's Chicken", "price":9.89, "claimed":True}, {"name":"Spare Ribs", "price":5.68, "claimed":False}]
 @app.route('/image', methods = ["GET", "POST"])
 def image():
     if request.method == "POST":
@@ -34,9 +47,9 @@ def image():
             <!doctype html>
             <title>Upload new File</title>
             <h1>Upload new File</h1>
-            <form action="" method=post enctype=multipart/form-data>
-              <p><input type=file name=file>
-                 <input type=submit value=Upload>
+            <form action="image" method="post" enctype="multipart/form-data">
+              <p><input type="file" name="uploadFile">
+                 <input type="submit" value="Upload File">
             </form>
             '''
 @app.route('/newcheck')
