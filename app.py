@@ -24,13 +24,31 @@ def index():
 def butts():
     return open("static/butts.html").read()
 
-def makeList(filename):
-    """call ThomasAPI using the image described by filename"""
-    page = "https://doctorwho.noip.me/tcolgr01/test.php"
-    data = {"name":"uploadedFile"}
-    files = {'uploadFile':open("uploads/"+filename)}
-    response = requests.post(page, data=data, files=files, verify=False)
-    return response.content 
+@app.route('/login', methods = ["GET", "POST"])
+def login():
+    """join an existing group"""
+    if request.method == "POST":
+        response = make_response(redirect("/check/"+request.form["code"]))
+        response.set_cookie('code', request.form['code'])
+        return response
+    else:
+        pass
+    return render_template("login.html")
+
+@app.route('/newcheck')
+def newcheck():
+    """return the new check page"""
+    return render_template("newcheck.html")
+
+@app.route('/create', methods = ["GET", "POST"])
+def create():
+    """create a new group"""
+    if request.method == "POST":
+        response = make_response(redirect("image"))
+        response.set_cookie('code', request.form['code'])
+        mongo.new_group(request.form['code'])
+        return response
+    return render_template(create)
 
 @app.route('/image', methods = ["GET", "POST"])
 def image():
@@ -53,33 +71,19 @@ def image():
             return redirect("check/"+request.cookies['code'])
 
     return render_template("uploadimage.html") 
-@app.route('/newcheck')
-def newcheck():
-    """return the new check page"""
-    return render_template("newcheck.html")
 
-@app.route('/create', methods = ["GET", "POST"])
-def create():
-    """create a new group"""
-    if request.method == "POST":
-        response = make_response(redirect("image"))
-        response.set_cookie('code', request.form['code'])
-        mongo.new_group(request.form['code'])
-        return response
-    return render_template(create)
-@app.route('/login', methods = ["GET", "POST"])
-def login():
-    """join an existing group"""
-    if request.method == "POST":
-        response = make_response(redirect("/check/"+request.form["code"]))
-        response.set_cookie('code', request.form['code'])
-        return response
-    else:
-        pass
-    return render_template("login.html")
+def makeList(filename):
+    """call ThomasAPI using the image described by filename"""
+    page = "https://doctorwho.noip.me/tcolgr01/test.php"
+    data = {"name":"uploadedFile"}
+    files = {'uploadFile':open("uploads/"+filename)}
+    response = requests.post(page, data=data, files=files, verify=False)
+    return response.content 
+
 @app.route('/check/<code>')
 def check(code):
     """see the current check"""
     return render_template("check.html",  items=mongo.get_items(code))
+
 if __name__=="__main__":
     app.run(debug=True)
