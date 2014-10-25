@@ -1,22 +1,13 @@
 {% extends "layout.html" %}
-{% block title %}Arthur's Page {% endblock %}
+{% block title %}Check-Mates{% endblock %}
 {% block head %} {{ super() }}
 
 {% endblock %}
 
 {% block content %}  
-<p> Arthur </p>
+<p>Upload your check</p>
 
-<ul id="artists">
-
-</ul>
-<ul id="results">
-
-</ul>
-<input class="name" type="text" name="Name"/>
 <br/>
-<input id="code" type="text" name="code"/>
-<button class="submit" type="submit" name="Submit" action="submit"> Submit </button>
 {% endblock %}
 
 {% block jquery %}
@@ -25,39 +16,7 @@
 
 
 $( document ).ready(function() { 
-        var artists = [];
-        var key = "Testin";
-        $( "button.submit" ).click(function(event) {
-            var x= {"artists":artists, "key":$("input#code").val()};
-            $.ajax({
-                type:"POST",
-                url: "/artist", 
-                dataType:"json",
-                contentType:"application/json",
-                async: false,
-                data: JSON.stringify(x), 
-                success: function(data, stat, something) {
-                for (var i = 0; i < data.response.artists.length; i++) {
-                    $("ul#results").append("<li>"+data.response.artists[i].name+"</li>");
-                }
-                }
-                });
-            event.preventDefault();
 
-            });
-        $('input.name').bind("enterKey",function(e){
-                var x = $("input.name").val();
-                $("ul#artists").append("<li>"+x+"</li>");
-                artists.push(x);
-                $("input.name").val("");
-                });
-        $('input.name').keyup(
-                function(e){
-                if(e.keyCode == 13)
-                {
-                $(this).trigger("enterKey");
-                }
-                });
 });
 </script>
 {% endblock %}
