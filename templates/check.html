@@ -6,7 +6,7 @@
 
 {% block content %}  
 {% for item in items %}
-<span class={{item["claimed"]}}> {{ item["name"] }}     {{item["price"]}}</span><br/>
+<span class="checkitem {{item["claimed"]}}"> {{ item["name"] }}     {{item["price"]}}</span><br/>
 {% endfor %}
 <br/>
 {% endblock %}
@@ -17,7 +17,13 @@
 
 
 $( document ).ready(function() { 
-
+    $(".checkitem").each(
+        function(index) {
+        $(this).click(function (evt) {
+            $(this).attr('class', 'checkitem True');
+            }
+        }
+        );
 });
 </script>
 {% endblock %}
