@@ -20,6 +20,10 @@ def allowed_file(filename):
 @app.route('/', methods = ["GET", "POST"])
 def index():
     return render_template("index.html")
+@app.route('/butts')
+def butts():
+    return open("static/butts.html").read()
+
 def makeList(filename):
     """call ThomasAPI using the image described by filename"""
     page = "https://doctorwho.noip.me/tcolgr01/test.php"
