@@ -4,6 +4,7 @@ import flask
 import os
 import json
 import mongo
+import requests
 import urllib2, urllib
 import base64
 #import dbc
@@ -21,25 +22,27 @@ def index():
     return render_template("index.html")
 def makeList(filename):
     page = "https://doctorwho.noip.me/tcolgr01/test.php"
-
-    with open(filename, "rb") as image_file:
-        encoded_image = base64.b64encode(image_file.read())
-    raw_params = {'quality':'2','category':'1','debug':'0', 'image': encoded_image}
-    params = urllib.urlencode(raw_params)
-    request = urllib2.Request(page, params)
-    request.add_header("Content-type", "application/x-www-form-urlencoded; charset=UTF-8")
-    page = urllib2.urlopen(request)
-    info = page.read()
-    return info
+    data = {"name":"uploadedFile"}
+    files = {'uploadFile':open("uploads/"+filename)}
+    response = requests.post(page, data=data, files=files, verify=False)
+    return response.content 
     #return [{"name":"Gene Gau's Chicken", "price":9.89, "claimed":True}, {"name":"Spare Ribs", "price":5.68, "claimed":False}]
 @app.route('/image', methods = ["GET", "POST"])
 def image():
     if request.method == "POST":
-        f = request.files['file']
+        f = request.files['uploadFile']
         if f and allowed_file(f.filename):
             filename = request.cookies['code']+"."+f.filename.split(".")[1]
             f.save("uploads/"+filename)
+
             ls = makeList(filename)
+            print ls
+            ls = '{"thing":'+ls+"}"
+            print ls
+            ls = json.loads(ls)
+            ls =  ls["thing"]
+            ls = map(lambda x: {"name":x[0], "price":x[1], "claimed":False},ls)
+
             mongo.change_items(request.cookies['code'], ls)
             return redirect("check/"+request.cookies['code'])
 
