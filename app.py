@@ -99,7 +99,6 @@ def makeList(filename):
     response = requests.post(page, data=data, files=files, verify=False)
     return response.content 
 
->>>>>>> 1cd9ef34ef3fa56945f3b4d35ac9deaaafb07ab9
 @app.route('/check/<code>')
 def check(code):
     """see the current check"""
