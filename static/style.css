@@ -13,3 +13,36 @@ textarea {
     color:red;
     background-color:blue;
 }
+
+.jumbotron {
+  background-image:url('http://www.glamour.com/images/health-fitness/2014/02/01-friends-dinner-w724.jpg');
+  height: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+}.nav-pills>li {
+    float: left;
+}
+.nav-pills>li>a {
+    border-radius: 4px;
+}
+.nav-pills>li+li {
+    margin-left: 2px;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+.nav-stacked>li {
+    float: none;
+}
+.nav-stacked>li+li {
+    margin-top: 2px;
+    margin-left: 0;
+}
+.nav-justified {
+    width: 75%}
+.nav-justified>li {
+    float: none;
+}

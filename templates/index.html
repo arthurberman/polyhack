@@ -4,11 +4,15 @@
 
 {% endblock %}
 
-{% block content %}  
-<a href="/newcheck">New Check</a>
-<br/>
-<a href="/login">Unresolved Check</a>
-<br/>
+{% block content %} 
+    <div class="jumbotron">
+      <div class="container">
+        <div class="nav nav-pills nav-stacked col-md-3">
+            <li><a href="/newcheck">New Check</a></li>
+            <li><a href="/login">Unresolved Check</a></li>
+        </div>
+      </div>
+    </div>  
 {% endblock %}
 
 {% block jquery %}
