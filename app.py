@@ -8,6 +8,7 @@ import mongo
 
 ALLOWED_EXTENSIONS = set(['txt', 'png', 'jpg', 'jpeg', 'gif'])
 app = Flask(__name__)
+mongo.connect()
 app.config['UPLOAD_FOLDER'] = "uploads"
 app.secret_key = "ThomasWroteSOMETHINGCOOL"
 def allowed_file(filename):
@@ -16,15 +17,18 @@ def allowed_file(filename):
 @app.route('/', methods = ["GET", "POST"])
 def index():
     return render_template("index.html")
+def makeList(filename):
+    return [{"name":"Gene Gau's Chicken", "price":9.89, "claimed":True}, {"name":"Spare Ribs", "price":5.68, "claimed":False}]
 @app.route('/image', methods = ["GET", "POST"])
 def image():
     if request.method == "POST":
         f = request.files['file']
         if f and allowed_file(f.filename):
-            filename = secure_filename(f.filename)
+            filename = request.cookies['code']+"."+f.filename.split(".")[1]
             f.save("uploads/"+filename)
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+            ls = makeList(filename)
+            mongo.change_items(request.cookies['code'], ls)
+            return redirect("check/"+request.cookies['code'])
 
     return  '''
             <!doctype html>
@@ -38,11 +42,12 @@ def image():
 @app.route('/newcheck')
 def newcheck():
     return render_template("newcheck.html")
-@app.route('/create')
+@app.route('/create', methods = ["GET", "POST"])
 def create():
     if request.method == "POST":
-        response = make_response(redirect("/check/"+request.form["code"]))
+        response = make_response(redirect("image"))
         response.set_cookie('code', request.form['code'])
+        mongo.new_group(request.form['code'])
         return response
     return render_template(create)
 @app.route('/login', methods = ["GET", "POST"])
@@ -56,7 +61,7 @@ def login():
     return render_template("login.html")
 @app.route('/check/<code>')
 def check(code):
-    return render_template("check.html",  items=getItems(code))
+    return render_template("check.html",  items=mongo.get_items(code))
 def getItems(cookie):
     return [{"name":"General Gau's Chicken", "price":9.89, "claimed":True}, {"name":"Spare Ribs", "price":5.68, "claimed":False}]
 @app.route('/uploads/<filename>')
