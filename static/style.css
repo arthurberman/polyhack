@@ -39,5 +39,5 @@ textarea {
 
 .jumbotron .container {
   position: relative;
-  top:350px;
+  top:%75;
 }
