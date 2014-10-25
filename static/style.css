@@ -13,3 +13,23 @@ textarea {
     color:red;
     background-color:blue;
 }
+
+p {
+	font: Helvetica, sans-serif;
+	color: #3a3a3a;
+	padding: 15px;
+}
+
+h1 {
+	font: Garamond, serif;
+	color: #3a3a3a;
+	padding: 15px;
+}
+
+
+/*.jumbotron {
+  background-image:url('landing_page_pic.jpg');
+  height: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}*/
