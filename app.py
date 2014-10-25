@@ -16,6 +16,10 @@ def allowed_file(filename):
 @app.route('/', methods = ["GET", "POST"])
 def index():
     return render_template("index.html")
+@app.route('/butts')
+def butts():
+    return open("static/butts.html").read()
+
 @app.route('/image', methods = ["GET", "POST"])
 def image():
     if request.method == "POST":
