@@ -15,13 +15,13 @@ textarea {
 }
 
 .jumbotron {
-  background-image:url("landing_page_pic.jpg");
+  background-image:url('landing_page_pic.jpg');
   height: 500px;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.nav a {
+.caps {
   color: #5a5a5a;
   font-size: 15px;
   font-weight: bold;
@@ -39,5 +39,5 @@ textarea {
 
 .jumbotron .container {
   position: relative;
-  top:350px;
+  top:%25;
 }
