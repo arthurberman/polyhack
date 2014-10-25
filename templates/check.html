@@ -18,25 +18,13 @@
 
 
 $( document ).ready(function() { 
-        $("#total").text("HI");
-        var totalVal = parseFloat(1);
-        var stuff = {};
-        {% for item in items %}
-        stuff["{{item["name"]}}"] = parseFloat({{item["price"]}});
-        {% endfor %}
-        console.log(totalVal - 1);
-        for (item in stuff) {
-            console.log(stuff[item] - 1);
-        }
-
-        $(".checkitem").each(
+        claimed = [];
+       $(".checkitem").each(
             function(index) {
             $(this).click(function (evt) {
                 $(this).attr('class', 'checkitem True');
-                totalVal = totalVal + stuff[$(this).attr("id")]["price"];
-                console.log(totalVal);
-                $("#total").text(totalVal);
-                })
+                claimed+=$(this).attr('id');
+                });
             }
             );
         });
