@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" src="facebook.js"></script>
+<body>
+<script>fbsetup();</script>
+
+<p>Click the button to display a confirm box.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+/*function load() {
+	fbsetup();
+}*/
+function myFunction() {
+    var x;
+    if (confirm("Login to FB?") == true) {
+        fblogin();
+    } else {
+        x = "Continue";
+    }
+    document.getElementById("demo").innerHTML = x;
+}
+</script>
+
+</body>
+</html>
