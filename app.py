@@ -66,7 +66,7 @@ def create():
         response.set_cookie('code', request.form['code'])
         mongo.new_group(request.form['code'])
         return response
-    return render_template(create)
+    return render_template("create")
 @app.route('/login', methods = ["GET", "POST"])
 def login():
     """join an existing group"""
