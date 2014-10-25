@@ -14,16 +14,17 @@ def new_group(groupname):
 	oid = handle.mygroups.insert({"gname":groupname, "gitems":{}})
 
 def change_items(groupname, items):
-	group = handle.mygroups.find({"gname":groupname})
-	oid = handle.mygroups.update(group, {"gname":groupname, "gitems":items})
+	oid = handle.mygroups.update({"gname":groupname}, {"gname":groupname, "gitems":items})
 
 def get_items(groupname):
-	group = handle.mygroups.find({"gname":groupname})
-	return group.items
+	group = handle.mygroups.find_one({"gname":groupname})
+	return group["gitems"]
+
+def get_all(groupname):
+	return handle.mygroups.find_one({"gname":groupname})
 
 def del_group(groupname):
-	group = handle.mygroups.find({"gname":groupname})
-	handle.mygroups.remove(group)
+	handle.mygroups.remove({"gname":groupname})
 
 def delete_all():
 	handle.mygroups.remove()
