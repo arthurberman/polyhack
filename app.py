@@ -34,6 +34,9 @@ def image():
                  <input type=submit value=Upload>
             </form>
             '''
+@app.route('/fblogin')
+def fblogin():
+    return "test"
 @app.route('/login', methods = ["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -48,7 +51,7 @@ def login():
 def check():
     return render_template("check.html",  items=getItems(request.cookies["code"]))
 def getItems(cookie):
-    return [cookie]
+    return [{"name":"General Gau's Chicken", "price":9.89, "claimed":True}, {"name":"Spare Ribs", "price":5.68, "claimed":False}]
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],

@@ -3,3 +3,13 @@ textarea {
     font:Arial;
     font-size:30px;
 }
+
+.True {
+    color:blue;
+    background-color:green;
+
+}
+.False {
+    color:red;
+    background-color:blue;
+}
