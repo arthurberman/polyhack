@@ -13,31 +13,23 @@ textarea {
     color:red;
     background-color:blue;
 }
-/*
-.jumbotron {
+
+p {
+	font: Helvetica, sans-serif;
+	color: #3a3a3a;
+	padding: 15px;
+}
+
+h1 {
+	font: Garamond, serif;
+	color: #3a3a3a;
+	padding: 15px;
+}
+
+
+/*.jumbotron {
   background-image:url('landing_page_pic.jpg');
   height: 500px;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.caps {
-  color: #5a5a5a;
-  font-size: 15px;
-  font-weight: bold;
-  padding: 14px 10px;
-  text-transform: uppercase;
-}
-
-.nav li {
-  display: inline;
-}
-
-.nav-pills li {
-	background: white;
-}
-
-.jumbotron .container {
-  position: relative;
-  top:%25;
 }*/
