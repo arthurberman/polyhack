@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block content %}  
-<p>Upload your check</p>
-
+{% for item in items %}
+{{ item }}
+{% endfor %}
 <br/>
 {% endblock %}
 
