@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Check-Mates{% endblock %}
+{% block head %} {{ super() }}
+
+{% endblock %}
+
+{% block content %}  
+{% for item in items %}
+{{ item }}
+{% endfor %}
+<br/>
+{% endblock %}
+
+{% block jquery %}
+
+<script>
+
+
+$( document ).ready(function() { 
+
+});
+</script>
+{% endblock %}

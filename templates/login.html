@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Check-Mates{% endblock %}
+{% block head %} {{ super() }}
+
+{% endblock %}
+
+{% block content %}  
+<p>Upload your check</p>
+<form action="/login" id="login" method="POST">
+    Secret Code: <input type="text" id="code" name="code"><br/>
+    <input type="submit" value="submit">
+</form>
+<br/>
+{% endblock %}
+
+{% block jquery %}
+
+<script>
+
+
+$( document ).ready(function() { 
+        $("#login").submit(function(evt) {
+                document.cookie = "code="+$("#code").val();
+            });
+});
+</script>
+{% endblock %}
