@@ -2,15 +2,17 @@
 {% block title %}Check-Mates{% endblock %}
 {% block head %} {{ super() }}
 
-<script type="text/javascript" src={{url_for('static', filename="facebook.js")}}>fbsetup();</script>
+<script type="text/javascript" src={{url_for('static', filename="facebook.js")}}></script>
 {% endblock %}
 
 {% block content %}  
 <div id="fb-root"></div>
 <script>fbsetup();</script>
-<button onclick="fbshare(document.URL)">Try it</button><br/>
+<button onclick="fbshare(document.URL)">Invite Friends</button><br/>
 {% for item in items %}
-<span id="{{item["name"]}}" class="checkitem {{item["claimed"]}}"> {{ item["name"] }}     {{item["price"]}}</span><br/>
+<span id="{{item["name"]}}" class="checkitem {{item["claimed"]}}">
+    {{ item["name"] }} {{item["price"]}}
+</span><br/>
 {% endfor %}
 <br/>
 <div id="total"> </div>
