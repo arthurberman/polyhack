@@ -15,9 +15,24 @@ textarea {
 }
 
 .jumbotron {
-  background-image:url('http://www.glamour.com/images/health-fitness/2014/02/01-friends-dinner-w724.jpg');
+  background-image:url("landing_page_pic.jpg");
   height: 500px;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
+.nav a {
+  color: #5a5a5a;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 14px 10px;
+  text-transform: uppercase;
+}
+
+.nav li {
+  display: inline;
+}
+
+.nav-pills li {
+	background: white;
+}
